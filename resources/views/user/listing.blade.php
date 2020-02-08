@@ -121,9 +121,7 @@
     <script type="text/javascript">
         jQuery(document).ready(function($){
             $('.remove').on('click', function (e){
-                const id = $(e.target).data('id');
                 const route = $(e.target).data('route');
-                alert(id, route); 
                 if(confirm('Are you sure to delete?')){
                     $('#delete_form')
                         .attr('action', route)
