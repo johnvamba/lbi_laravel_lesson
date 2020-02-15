@@ -10,11 +10,18 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+use App\RolesPermissions\Role;
+use App\RolesPermissions\Permission;
+use App\User;
+use Illuminate\Support\Facades\DB;
 Route::get('/', function () {
-	//logic1
+	// //logic1
+	// DB::enableQueryLog();
+	// $roles = Role::first();
+	// dd($roles->permissions->first(),DB::getQueryLog());
     return view('welcome');
 });
+
 Route::get('/second', "SecondController");
 Route::get('/payment/receive', "PaymentController@receive");
 

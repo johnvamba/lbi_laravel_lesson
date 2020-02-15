@@ -5,6 +5,9 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\RolesPermissions\Role;
+use App\RolesPermissions\Permission;
+
 
 class User extends Authenticatable
 {
@@ -36,4 +39,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    //Relations
+    public function roles(){
+        return $this->belongsToMany(Role::class, 'user_roles');
+    }
+
+    public function temp_permissions(){
+        return $this->belongsToMany(Permission::class, 'temp_permissions');
+    }
 }

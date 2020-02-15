@@ -26,6 +26,9 @@ class UserController extends Controller
      */
     public function create()
     {
+        if(auth()->user()->can('add.users')){
+            //Catch
+        }
         $user = new User();
         return view('user.form')->with('user', $user);
     }
