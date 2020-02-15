@@ -14,16 +14,38 @@ use App\RolesPermissions\Role;
 use App\RolesPermissions\Permission;
 use App\User;
 use Illuminate\Support\Facades\DB;
-Route::get('/', function () {
-	// //logic1
-	// DB::enableQueryLog();
-	// $roles = Role::first();
-	// dd($roles->permissions->first(),DB::getQueryLog());
-    return view('welcome');
+
+Route::group(['middleware'=>'auth'], function(){
+	Route::get('/home',function(){
+		return view('welcome');
+	});
+	Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+	
+	Route::resource('user', 'UserController');
 });
 
-Route::get('/second', "SecondController");
-Route::get('/payment/receive', "PaymentController@receive");
+Route::get('/authenticated', function(){
+	return 'another authenticated page';
+})->middleware('guest');
+// Route::get('/', function () {
+// 	// //logic1
+// 	dd(auth()->user());
+// 	// DB::enableQueryLog();
+// 	// $roles = Role::first();
+// 	// dd($roles->permissions->first(),DB::getQueryLog());
+//     return view('welcome');
+// });
 
-Route::resource('user', 'UserController');
+// Route::get('/second', "SecondController");
+// Route::get('/payment/receive', "PaymentController@receive");
+Route::get('/', function(){
+	return 'Open Page';
+});
+
+Route::group(['namespace'=>'Auth'], function(){
+	Route::get('login', 'LoginController@unauthenticatedPage')->name('login');
+	Route::post('login', 'LoginController@login')->name('auth.login');
+});
+
+
 // Route::get('user', 'UserController@index');

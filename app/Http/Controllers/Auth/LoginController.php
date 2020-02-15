@@ -37,4 +37,15 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+
+    public function unauthenticatedPage()
+    {
+        return view('auth.login');
+    }
+
+    public function username()
+    {
+        return 'username';
+    }
 }
